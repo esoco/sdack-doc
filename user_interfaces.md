@@ -8,8 +8,30 @@ The base for all process interactions is the class `InteractionFragment`. It is 
 
 Most subclasses of `InteractionFragment` just need to implement the method `init()`. There they declare which process parameters shall be displayed to the user and which of these can receive input from the user. As process parameters are instances of `RelationType` (from the ObjectRelations framework) an interaction is defined by a list of parameter relation types. If fragments contain other fragments they just add the parameter lists of the sub-fragments into parameters that have a collection of relation types as their datatype. That means a complex interaction is defined by nested collections of process parameter relation types.
 
-To modify the default presentation of interactive parameters a fragment can set corresponding properties as meta-data on the parameters.
+To modify the default presentation of interactive parameters a fragment can set corresponding properties as meta-data on the parameters. Most of these properties are defined in the class `UserInterfaceProperties`.
 
 ## Fragment Layout
 
-An interaction is defined by the process parameters it displays. That means that an interaction basically is nothing else as a list of process parameters. If an interaction fragment contains other fragments it simply places the sub-fragment's parameter in an own parameter that is defined as a list of parameter relation types.
+The layout of a fragment defines how it's parameters are arranged in the generated UI. Because interactions are basically defined as lists of parameters the property to set the fragment layout is called `ListDisplayMode`. It is defined in the class `DataElementList`, a subclass of `DataElement`. Data elements are the data transport objects for the communication between server and client (i.e. process and UI). To set the layout of a fragment use the fluent parameter interface:
+
+    fragmentParam().layout(ListDisplayMode.GRID);
+
+Fragment layouts can be divided into several categories: simple, segmented, grouped, and structured. Simple layouts just displays one or more parameters without further constraints. Segmented layouts place parameters in specific areas of the available space. Grouped layouts display multiple parameter separately so that only one parameter (which may be a sub-fragment) is visible at a time. And structured layouts expect certain layout properties to be set on parameters to place them accordingly.
+
+### Simple Layouts
+
+* `FILL`: This mode simply fills the display area available to a fragment with a single parameter. Placing multiple parameters in this layout is not supported and may result in rendering problems or exception. (HTML: `div` with width and height set to 100%)
+* `FLOW`: Parameters are arranged in a natural flow as defined by the UI context. For web applications that means that components will be placed by the web browsers layout engine. This can often be controlled by providing CSS styling.  (HTML: `div`)
+* `MENU`: Adds all parameters to a structure that represents a menu or other navigation element. (HTML: `nav`)
+
+### Segmented Layouts
+
+* `DOCK`: Up to three parameters (or sub-fragments) can be arranged as left, right, and center elements. The left and/or right parameters must have an explicit size set so that the center element will fill the remaining space. To arrange the parameters vertically instead of horizontally the flag `VERTICAL` can be set on the fragment parameter.
+* `SPLIT`: Similar to `DOCK` but the pre-set sizes of the border areas can be modified interactively by the user afterwards.
+
+### Grouped Layouts
+
+* `TABS`: All fragment parameter will be placed in distinct horizontal tabs of which only one can be visible at a time. The user can select the visible tab interactively but the fragment that also query and set the index of the currently active tab through the property `CURRENT_SELECTION`.
+* `STACK`: Similar to `TABS` but the parameters are arranged in a vertical stack instead.
+* `DECK`: This mode doesn't provide a interface for the user. Therefore the currently visible parameter can only be set by the fragment through `CURRENT_SELECTION`.
+
