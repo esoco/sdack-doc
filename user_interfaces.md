@@ -1,4 +1,4 @@
-# User Interfaces
+ User Interfaces
 
 In SDACK user interfaces are created by creating interactive process steps. If a process encounters such an interactive step during execution it will stop and communicate with the application user to display data and collect input. If the user finishes the interaction the process will continue to run, either until the next interaction or to it's end. On a stop the framework queries all process parameters that have been declared as interactive by the causing step. Then it generates the corresponding user interface components and displays them to the user. Any input will be collected into the corresponding parameters and the process step will be notified if the process continues to run.
 
@@ -16,7 +16,7 @@ The layout of a fragment defines how it's parameters are arranged in the generat
 
     fragmentParam().layout(ListDisplayMode.GRID);
 
-Fragment layouts can be divided into several categories: simple, segmented, grouped, and structured. Simple layouts just displays one or more parameters without further constraints. Segmented layouts place parameters in specific areas of the available space. Grouped layouts display multiple parameter separately so that only one parameter (which may be a sub-fragment) is visible at a time. And structured layouts expect certain layout properties to be set on parameters to place them accordingly.
+Fragment layouts can be divided into several categories: simple, segmented, exclusive, and structured. Simple layouts just displays one or more parameters without further constraints. Segmented layouts place parameters in specific areas of the available space. Exclusive layouts display multiple parameters separately so that only one parameter (which may be a sub-fragment) is visible at a time. And structured layouts expect certain layout properties to be set on parameters to place them accordingly.
 
 ### Simple Layouts
 
@@ -29,9 +29,19 @@ Fragment layouts can be divided into several categories: simple, segmented, grou
 * `DOCK`: Up to three parameters (or sub-fragments) can be arranged as left, right, and center elements. The left and/or right parameters must have an explicit size set so that the center element will fill the remaining space. To arrange the parameters vertically instead of horizontally the flag `VERTICAL` can be set on the fragment parameter.
 * `SPLIT`: Similar to `DOCK` but the pre-set sizes of the border areas can be modified interactively by the user afterwards.
 
-### Grouped Layouts
+### Exclusive Layouts
 
 * `TABS`: All fragment parameter will be placed in distinct horizontal tabs of which only one can be visible at a time. The user can select the visible tab interactively but the fragment that also query and set the index of the currently active tab through the property `CURRENT_SELECTION`.
 * `STACK`: Similar to `TABS` but the parameters are arranged in a vertical stack instead.
 * `DECK`: This mode doesn't provide a interface for the user. Therefore the currently visible parameter can only be set by the fragment through `CURRENT_SELECTION`.
+
+### Structured Layouts
+
+* `GRID`: Places parameter in distinct rows depending on the property flag `SAME_ROW`. If set on a parameter it will be placed in the same row as the previous parameters. For each parameter without this flag a new row will be created in the UI. In HTML the rows and their elements will become correspoding style names so that a CSS grid system can be applied to the fragment. (HTML: hierachy of `div` elements)
+* `FORM`: An input form. Works like `GRID` but uses a different UI element. (HTML: `form` with `div` children)
+* `GROUP`: Groups the parameter visually and can have a title by adding a text parameter with the `LABEL_STYLE` set to `TITLE`. Typically used to group elements in a form. (HTML: `fieldset` with `div` children)
+* `TABLE`: Arranges parameters in a table structure. In the case of HTML this will be a 'table' element. Because this is the oldest layout mode it is also the default if no explicit mode is set on a fragment. But because the layout of nested tables often leads to problems it is recommended to use one of the other layouts whenever possible. Table layouts should only be used if a (HTML) table is explicitly needed and only if no further nesting of fragments is necessary.
+
+
+
 
