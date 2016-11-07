@@ -11,7 +11,7 @@ The main goal of SDACK is to make application development as easy as possible wh
 
 The following sections provide an overview of the single framework layers. They also link to detailed documentation for the respective layer.
 
-## esoco-common
+## [esoco-common](esoco-common.md)
 
 This library contains a small set of essential functionality like core interfaces and fundamental data structures. It is the foundation of the ObjectRelations framework and uses only a small set of standard Java APIs. That allows to use it in constrained Java environments like GWT where only a subset of these APIs is available.
 
