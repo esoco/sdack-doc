@@ -5,15 +5,15 @@ The following illustration displays the current framework stack:
 
 ![SDACK](esoco Framework Stack.png)
 
-SDACK provides all components that are necessary to write arbitrary applications. This covers areas like persistence, networking, logging, user interface, and more. For web applications it has a single dependency to the open source [GWT project](http://gwtproject.org), but that is not accessed directly. Instead it is used through a simplified abstraction. Such abstractions are one of the main properties (and goals) of SDACK and makes projects widely independent from external APIs. Other external dependencies depend only on the application environment, e.g. JDBC database drivers. The full framework stack is very compact, in code size as well as considering the number of API methods to learn.
+SDACK provides all components that are necessary to write applications for different purposes. This covers areas like persistence, networking, logging, user interface, and more. For web applications it has a single dependency to the open source [GWT project](http://gwtproject.org), but that is not accessed directly. Instead it is used through a simplified abstraction (GEWT). Such abstractions are one of the main properties of SDACK and makes projects widely independent from external APIs. Other external dependencies depend on the application environment, e.g. JDBC database drivers. The full framework stack is compact, in code size as well as considering the number of API methods to learn.
 
-The main goal of SDACK is to make application development as easy as possible. But it still provides the full functionality of all underlying APIs. The major building block for this is the ObjectRelations framework. It introduces a new programming paradigm that is the foundation of all upper levels of the stack. A major design principle of all frameworks is to hide as much non-essential code from the developer as possible. It provides simple to use APIs that need no configuration for default behavior. They also use modern software design patterns like Generics, Functional Programming, and Fluent Interfaces.
+The main goal of SDACK is to make application development as easy as possible while still providing the full functionality of all underlying APIs. The major building block for this is the [ObjectRelations]() framework. It introduces a new programming paradigm that is the foundation of all upper levels of the stack. A major design principle of all frameworks is to hide as much non-essential code from the developer as possible. It provides simple to use APIs that need no configuration for default behavior. They also use modern software design patterns like Generics, Functional Programming, and Fluent Interfaces.
 
 The following sections provide an overview of the single framework layers. They also link to detailed documentation for the respective layer.
 
 ## esoco-common
 
-This library contains a small set of essential functionality like core interfaces and fundamental data structures. It is independent from the ObjectRelations framework (which depends on it) and uses only a small set of standard Java APIs. That allows to use it in constrained Java environments like GWT where only a subset of these APIs is available.
+This library contains a small set of essential functionality like core interfaces and fundamental data structures. It is the foundation of the ObjectRelations framework and uses only a small set of standard Java APIs. That allows to use it in constrained Java environments like GWT where only a subset of these APIs is available.
 
 ## ObjectRelations
 
