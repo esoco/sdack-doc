@@ -18,5 +18,3 @@ A presentation that summarizes the properties and application of SDACK.
 
 Documentation of the tools that are part of SDACK.
 
-
-
