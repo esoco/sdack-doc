@@ -1,4 +1,4 @@
-### [⤴](https://apps.timwhitlock.info/emoji/tables/unicode#emoji-modal)[ SDACK Tools](/tools.md)
+### [⤴ SDACK Tools](/tools.md)
 
 ## ModificationSyncService
 
