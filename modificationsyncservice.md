@@ -25,7 +25,7 @@ The main sync service API under `/api/sync` provides the following endpoints:
 * `/api/sync/release_lock`: release a lock held by the current client
 * `/api/sync/current_locks`: list the locks currently held by the service \(mirrored as `/api/status/current_locks`\)
 
-In addition, the API is mirrored under the base URL `/webapi` which provides a simple HTML view of the service API. This provides a way to quickly check the service status from a web browser. Service modifications are not possible through the web service. For that purpose the [ModificationSyncServiceTool](#modificationsyncservicetool) \(or the regular API\) should be used. 
+In addition, the API is mirrored under the base URL `/webapi` which provides a simple HTML view of the service API. This provides a way to quickly check the service status from a web browser. Service modifications are not possible through the web service. For that purpose the [ModificationSyncServiceTool](#modificationsyncservicetool) \(or the regular JSON API\) should be used.
 
 ### ModificationSyncEndpoint
 
