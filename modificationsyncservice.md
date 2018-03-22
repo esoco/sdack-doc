@@ -1,12 +1,22 @@
 ### [⤴ SDACK Tools](/tools.md)
 
-## ModificationSyncService
+### ModificationSyncService
 
 The `ModificationSyncService` is a REST service that can be used to synchronize the access to shared resources from multiple applications. Such resources may be a central database or interfaces to external systems, for example. Applications can request a lock to a certain resource and if the resource is not locked already the request will be granted and recorded. Otherwise the application will be notified that a lock exists so that it can react accordingly, e.g. by notifying the user or postpone the processing of the resource. The business framework of SDACK can use a sync service to synchronize requests to persistent entities in a database.
 
 The service is part of the esoco-lib library of SDACK. It is implemented in Java as a server application that listens for HTTP requests on a certain port \(default 7962 = SYNC\). This makes it simple to run it as a Microservice, e.g. in a Docker container. To connect to a sync service from an application esoco-lib also contains the `ModificationSyncEndpoint` that provides a simple `Endpoint` interface to sync services. For the administration of running sync services the command line tool `ModificationSyncServiceTool` can be used.
 
-The sync service can be accessed through several URLs relative to the service address. Requests to these URLs must be in JSON format which is also used for the responses. The main URL is `/api/sync/` under which the actual synchronization API is available to applications. There are also some additional URLs that can be accessed:
+#### Service Structure
+
+The data held by the sync service is a mapping from resources to lock holders. If a client application wants to register a lock for some target resource it must provide identifiers for the target and for itself. These identifiers are string values and their structure, content, and global uniqueness must be defined by the applications. For example, in the case of database records a typical target ID could be a combination of table name and unique record ID.
+
+If no lock is already held by another client the mapping is entered and the lock is granted. Otherwise the HTTP error status code 423 \(= _Locked_\) is returned. If the client no longer needs access to the resource it must release the lock for the respective target ID. Releasing locks is crucial for the correct functioning of the service and must therefore be implemented thoroughly to prevent the lock service from holding stale locks.
+
+To avoid the need to operate multiple sync services for different deployment stages of the applications the sync service expects an additional context parameter besides the target and client IDs. It defines the context for which a lock is managed \(e.g. develop, test, and production\), allowing to deploy a single service to handle all sync requests in an organization. But if desired it is still possible to deploy multiple sync services and just use a default context.
+
+#### Service API
+
+The API of the sync service can be accessed through several URLs relative to the service address. Requests to these URLs must be in JSON format which is also used for the responses. The main URL is `/api/sync/` under which the actual synchronization API is available to applications. There are also some additional URLs that can be accessed:
 
 * `/info`: displays some basic informations about the service \(this is also the default if the service address is invoked without a URL
 * `/ping` and `/healthcheck`: both return true if the service is up and running. Can be used for monitoring purposes
@@ -29,7 +39,9 @@ In addition, the API is mirrored under the base URL `/webapi` which provides a s
 
 ### ModificationSyncEndpoint
 
+The library also contains an implementation of the `Endpoint` class that provides an easy way to communicate with a running ModificationSyncService. Examples for using this endpoint can be found in the ModificationSyncServiceTool.
+
 ### ModificationSyncServiceTool
 
-
+This is a Java command line application that allows to access the API of a ModificationSyncService and to perform maintenance operations on it.
 
