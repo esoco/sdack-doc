@@ -1,5 +1,8 @@
 ### [⤴ SDACK Tools](/tools.md)
 
+* [ModificationSyncServiceEndpoint](#modificationsyncendpoint)
+* [ModificationSyncServiceTool](#modificationsyncservicetool)
+
 ### ModificationSyncService
 
 The `ModificationSyncService` is a REST service that can be used to synchronize the access to shared resources from multiple applications. Such resources may be a central database or interfaces to external systems, for example. Applications can request a lock to a certain resource and if the resource is not locked already the request will be granted and recorded. Otherwise the application will be notified that a lock exists so that it can react accordingly, e.g. by notifying the user or postpone the processing of the resource. The business framework of SDACK can use a sync service to synchronize requests to persistent entities in a database.
@@ -80,7 +83,7 @@ To invoke the tool at least the service URL and a command must be provided:
 
 The command `-list` will list all locks in the sync service, grouped by contexts. This is the same data that will be displayed when navigating to the `/api/status/current_locks` URL of the service.  If a context is provided with the `-context <context>` switch a command will only be applied to that context. The list command would then only list the locks in the given context.
 
-The context and an additional -target parameter are required for the `-lock` and `-unlock` commands. These set or remove locks for the respective target IDs in a certain context. The `-reset` command will clear all locks in given context or, if omitted, in all contexts. **These lock-modifying operations should be handled with caution** as they can severely affect the lock synchronization in an infrastructure.** The ModificationSyncServiceTool is an administration tool** that is only intended to solve problems that occur because application perform erroneous lock handling. 
+The context and an additional -target parameter are required for the `-lock` and `-unlock` commands. These set or remove locks for the respective target IDs in a certain context. The `-reset` command will clear all locks in given context or, if omitted, in all contexts. **These lock-modifying operations should be handled with caution** as they can severely affect the lock synchronization in an infrastructure.** The ModificationSyncServiceTool is an administration tool** that is only intended to solve problems that occur because application perform erroneous lock handling.
 
 The last command is `-loglevel` which sets the log-level of the sync service at runtime as described for the `/api/control/log_level` URL. Caution is advised for the TRACE and DEBUG log levels as they may cause the output of much data in short time, possibly filling available storage space of the sync service.
 
