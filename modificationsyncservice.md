@@ -6,7 +6,7 @@ The ModificationSyncService is a REST service that can be used to coordinate the
 
 The service is part of the esoco-lib library of SDACK. It is implemented in Java as a server application that listens for HTTP requests on a certain port \(default 7962 = SYNC\). This makes it simple to run it as a Microservice, e.g. in a Docker container. To connect to a sync service from an application esoco-lib also contains the `ModificationSyncEndpoint` that provides a simple `Endpoint` interface to sync services. For the administration of running sync services the command line tool `ModificationSyncServiceTool` can be used.
 
-The sync service exposes several URLs relative to the service address to provide access it's functionality. The main URL
+The sync service can be accessed through several URLs relative to the service address. The main URL is `/api/sync/` under which the main 
 
 ### ModificationSyncEndpoint
 
