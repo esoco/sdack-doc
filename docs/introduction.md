@@ -6,7 +6,7 @@ To create a SDACK application you define processes and entities. Processes encap
 
 The following illustration displays the current framework stack:
 
-![SDACK](esoco Framework Stack.png)
+![SDACK](img/esoco Framework Stack.png)
 
 SDACK provides all components that are necessary to write applications for different purposes. This covers areas like persistence, networking, logging, user interface, and more. For web applications it has a single dependency to the open source [GWT project](http://gwtproject.org), but that is not accessed directly. Instead it is used through a simplified abstraction \(GEWT\). Such abstractions are one of the main properties of SDACK and makes projects widely independent from external APIs. Other external dependencies depend on the application environment, e.g. JDBC database drivers. The full framework stack is compact, in code size as well as considering the number of API methods to learn.
 
